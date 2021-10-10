@@ -7,10 +7,6 @@ import { ListCategoriesController } from "../modules/cars/useCases/listCategorie
 
 const categoriesRoutes = Router();
 
-const upload = multer({
-  dest: "./tmp",
-});
-
 const createCategoryController = new CreateCategoryController();
 categoriesRoutes.post("/", createCategoryController.handle);
 
