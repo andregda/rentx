@@ -11,5 +11,3 @@ getConnectionOptions().then((options) => {
     ...options,
   });
 });
-
-createConnection();

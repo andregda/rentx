@@ -1,147 +1,145 @@
 {
-  "openapi": "3.0.0",
-  "info": {
+   "openapi": "3.0.0",
+   "info": {
      "title": "RentX Documentation",
-     "Description": "This is an API Rent",
-     "version": "1.0.0",
+     "description": "This is an API Rent",
+     "version": "1.0.1",
      "contact": {
-        "email": "jan.urbanneto@gmail.com"
+       "email": "https://github.com/andregda"
      }
-  },
-
-  "paths":{
-
+   },
+   "paths": {
      "/categories": {
-        "post": {
-           "tags": ["Category"],
-           "summary": "Create a category",
-           "description": "Create a new category",
-           "requestBody": {
-              "content": {
-                 "application/json": {
-                    "schema": {
-                       "type": "object",
-                       "proprieties": {
-                          "name": {
-                             "type": "string"
-                          },
-                          "description": {
-                             "type": "string"
-                          }
+       "post": {
+         "tags": ["Category"],
+         "summary": "Create a New Category",
+         "description": "Create a New Category",
+         "requestBody": {
+           "content": {
+             "application/json": {
+               "schema": {
+                 "type": "object",
+                 "properties": {
+                   "name": {
+                     "type": "string"
+                   },
+                   "description": {
+                     "type": "string"
+                   }
+                 },
+                 "example": {
+                   "name": "Category Name Sample",
+                   "description": "Category Description Sample"
+                 }
+               }
+             }
+           }
+         },
+         "responses": {
+           "201": {
+             "description": "Created Successfully"
+           },
+           "500": {
+             "description": "Category Already Exists"
+           }
+         }
+       },
+       "get": {
+         "tags": ["Category"],
+         "summary": "List All Categories",
+         "description": "List All Categories",
+         "responses": {
+           "200": {
+             "description": "Success",
+             "content": {
+               "application/json" : {
+                 "schema": {
+                   "type": "array",
+                   "items": {
+                     "type": "object",
+                     "properties": {
+                       "id": {
+                         "type": "string"
                        },
-                       "example": {
-                          "name": "category name sample",
-                          "description": "category description sample"
+                       "name": {
+                         "type": "string"
+                       },
+                       "description": {
+                         "type": "string"
+                       },
+                       "created_at": {
+                         "type": "string"
                        }
-                    }
+                     }
+                   }
                  }
-              }
-           },
-           "responses": {
-              "201": {
-                 "description": "created"
-              },
-              "500": {
-                 "description": "Category already exists"
-              }
+               }
+             }
            }
-        },
-        "get": {
-           "tags": ["Category"],
-           "summary": "List all categories",
-           "description": "List all categories",
-           "responses": {
-              "200": {
-                 "description": "Success",
-                 "content": {
-                    "application/json": {
-                       "schema": {
-                          "type": "array",
-                          "items": {
-                             "type": "object",
-                             "properties": {
-                                "name": {
-                                   "type": "string"
-                                },
-                                "description": {
-                                   "type":"string"
-                                }
-                             }
-                          }
-                       }
-                    }
-                 }
-              }
-           }
-        }
+         }
+       }
      },
-
-     "/categories/import" : {
-        "post": {
-           "tags": ["Category"],
-           "summary": "Upload categorories",
-           "description": "Upload categorories",
-           "requestBody": {
-              "content": {
-                 "multipart/form-data": {
-                    "schema": {
-                       "type":"object",
-                       "proprieties": {
-                          "file": {
-                             "type": "string",
-                             "format": "binary"
-                          }
-                       }
-                    }
+     "/categories/import": {
+       "post": {
+         "tags": ["Category"],
+         "summary": "Upload a New Category",
+         "description": "Upload a New Category",
+         "requestBody": {
+           "content": {
+             "multipart/form-data": {
+               "schema": {
+                 "type": "object",
+                 "properties" : {
+                   "file": {
+                     "type": "string",
+                     "format": "binary"
+                   }
                  }
-              }
-           },
-           "responses": {
-              "201": {
-                 "description": "Created"
-              }
+               }
+             }
            }
-        }
+         },
+         "responses": {
+           "201": "Created"
+         }
+       }
      },
-
      "/specifications": {
-        "post": {
-           "tags": ["specifications"],
-           "summary": "Create a specification",
-           "description":"Create a new specification",
-           "requestBody": {
-              "content": {
-                 "application/json": {
-                    "schema": {
-                       "$ref": "#/definitions/Specification"
-                    }
-                 }
-              }
-           },
-
-           "responses": {
-              "201": {
-                 "description": "Created"
-              },
-              "500": {
-                 "description": "Specification already exists"
-              }
+       "post": {
+         "tags": ["Specifications"],
+         "summary": "Create a Specification",
+         "description": "Create a New Specification",
+         "requestBody": {
+           "content": {
+             "application/json": {
+               "schema" : {
+                 "$ref" : "#/definitions/Specifications"
+               }
+             }
            }
-        }
-     }
-  },
-
-  "definitions": {
-     "Specification": {
-        "type": "object",
-        "proprieties": {
-           "name": {
-              "type": "string"
+         },
+         "responses": {
+           "201": {
+             "description": "Created successfully"
            },
-           "description": {
-              "type": "string"
+           "500": {
+             "description": "Specifications Already Exist."
            }
-        }
+         }
+       }
      }
-  }
-}
+   },
+   "definitions": {
+     "Specifications": {
+       "type": "object",
+       "properties": {
+         "name": {
+           "type": "string"
+         },
+         "description": {
+           "type": "string"
+         }
+       }
+     }
+   }
+ }

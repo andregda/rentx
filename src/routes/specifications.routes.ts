@@ -1,22 +1,14 @@
 import { Router } from "express";
+import { container } from "tsyringe";
 
-import { SpecificationsRepository } from "../modules/cars/repositories/Implementations/SpecificationsRepository";
-import { CreateSpecificationUseCase } from "../modules/cars/useCases/createSpecification/CreateSpecificationUseCase";
+import { CreateSpecificationController } from "../modules/cars/useCases/createSpecification/CreateSpecificationController";
 
 const specificationRoutes = Router();
 
-const specificationsRepository = new SpecificationsRepository();
+const createSpecificationController = container.resolve(
+  CreateSpecificationController
+);
 
-specificationRoutes.post("/", (request, response) => {
-  const { name, description } = request.body;
-
-  const createSpecificationService = new CreateSpecificationUseCase(
-    specificationsRepository
-  );
-
-  createSpecificationService.execute({ name, description });
-
-  return response.status(201).send();
-});
+specificationRoutes.post("/", createSpecificationController.handle);
 
 export { specificationRoutes };
