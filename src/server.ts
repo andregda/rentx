@@ -3,7 +3,8 @@ import "express-async-errors";
 import "reflect-metadata";
 import swaggerUI from "swagger-ui-express";
 
-import { AppError } from "./errors/AppErrors";
+import { AppError } from "@errors/AppError";
+
 import { router } from "./routes";
 import swaggerFile from "./swagger.json";
 
