@@ -1,0 +1,28 @@
+import { ICreateCarDTO } from "@modules/cars/dtos/ICreateCarDTO";
+import { ICarsRepository } from "@modules/cars/repositories/ICarsRepository";
+
+class CreateCarUseCase {
+  constructor(private createCarRepository: ICarsRepository) {}
+
+  async execute({
+    name,
+    description,
+    daily_rate,
+    license_plate,
+    fine_amount,
+    brand,
+    category_id,
+  }: ICreateCarDTO): Promise<void> {
+    this.createCarRepository.create({
+      name,
+      description,
+      daily_rate,
+      license_plate,
+      fine_amount,
+      brand,
+      category_id,
+    });
+  }
+}
+
+export { CreateCarUseCase };

@@ -9,12 +9,13 @@
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
     "skipLibCheck": true,
+    "sourceMap": true,
     "baseUrl": "./src",
+    "strictPropertyInitialization": false,
     "paths": {
       "@modules/*": ["modules/*"],
       "@config/*": ["config/*"],
       "@shared/*": ["shared/*"],
-      "@errors/*": ["errors/*"],
       "@utils/*": ["utils/*"]
     }
   }

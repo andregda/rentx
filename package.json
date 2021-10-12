@@ -18,8 +18,9 @@
     "uuid": "^8.3.2"
   },
   "scripts": {
-    "dev": "ts-node-dev -r tsconfig-paths/register --inspect --transpile-only --ignore-watch node_modules --respawn src/server.ts",
+    "dev": "ts-node-dev -r tsconfig-paths/register --inspect=0.0.0.0:9229 --transpile-only --ignore-watch node_modules --respawn src/shared/infra/http/server.ts",
     "typeorm": "ts-node-dev -r tsconfig-paths/register ./node_modules/typeorm/cli",
+    "fix:lint": "eslint ./src/**/* --fix --ext .ts",
     "test": "jest"
   },
   "devDependencies": {
