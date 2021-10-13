@@ -24,7 +24,7 @@ export async function ensureAuthenticated(
   try {
     const { sub: userId } = verify(
       token,
-      "997db1d173c7d429f21aa54fe4faaad6"
+      "576057278c5a9d5629928f4d44471783"
     ) as PayloadType;
 
     const usersRepository = new UsersRepository();
@@ -39,7 +39,7 @@ export async function ensureAuthenticated(
       id: userId,
     };
 
-    next();
+    return next();
   } catch {
     throw new AppError("Invalid token", 401);
   }
