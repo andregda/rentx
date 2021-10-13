@@ -13,6 +13,7 @@ class CreateCarController {
       fine_amount,
       brand,
       category_id,
+      specifications,
     } = request.body;
 
     const createCarUseCase = container.resolve(CreateCarUseCase);
@@ -25,6 +26,7 @@ class CreateCarController {
       fine_amount,
       brand,
       category_id,
+      specifications,
     });
 
     return response.status(201).json(car);
