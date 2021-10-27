@@ -10,12 +10,18 @@ class RentalsRepositoryInMemory implements IRentalsRepository {
     car_id,
     user_id,
     expected_return_date,
+    id,
+    end_date,
+    total,
   }: ICreateRentalDTO): Promise<Rental> {
     const rental = new Rental();
 
     Object.assign(rental, {
       car_id,
       user_id,
+      id,
+      end_date,
+      total,
       expected_return_date,
       start_date: new Date(),
     });
@@ -34,6 +40,10 @@ class RentalsRepositoryInMemory implements IRentalsRepository {
     return this.rentals.find(
       (rental) => rental.car_id === car_id && !rental.end_date
     );
+  }
+
+  async findById(id: string): Promise<Rental> {
+    throw new Error("Method not implemented.");
   }
 }
 
