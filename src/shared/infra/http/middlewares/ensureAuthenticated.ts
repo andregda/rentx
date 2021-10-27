@@ -3,6 +3,7 @@ import { verify } from "jsonwebtoken";
 
 import auth from "@config/auth";
 import { UsersRepository } from "@modules/accounts/infra/typeorm/repositories/UsersRepository";
+import { UserTokensRepository } from "@modules/accounts/infra/typeorm/repositories/UserTokensRepository";
 import { AppError } from "@shared/errors/AppError";
 
 type PayloadType = {
@@ -16,6 +17,8 @@ export async function ensureAuthenticated(
 ) {
   const authHeader = request.headers.authorization;
 
+  const userTokensRepository = new UserTokensRepository();
+
   if (!authHeader) {
     throw new AppError("Token missing", 401);
   }
@@ -23,18 +26,22 @@ export async function ensureAuthenticated(
   const [, token] = authHeader.split(" ");
 
   try {
-    const { sub: userId } = verify(token, auth.secret_token) as PayloadType;
+    const { sub: user_id } = verify(
+      token,
+      auth.secret_refresh_token
+    ) as PayloadType;
 
-    const usersRepository = new UsersRepository();
-
-    const user = usersRepository.findById(userId);
+    const user = userTokensRepository.findByUserIdAndRefreshToken(
+      user_id,
+      token
+    );
 
     if (!user) {
       throw new AppError("User does not exists", 401);
     }
 
     request.user = {
-      id: userId,
+      id: user_id,
     };
 
     return next();
