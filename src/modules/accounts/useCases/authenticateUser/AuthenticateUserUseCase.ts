@@ -46,11 +46,6 @@ class AuthenticateUserUseCase {
       throw new AppError("User not authenticated.");
     }
 
-    const token = sign({}, auth.secret_token, {
-      subject: user.id,
-      expiresIn: auth.expires_in_token,
-    });
-
     const refresh_token = sign({ email }, auth.secret_refresh_token, {
       subject: user.id,
       expiresIn: auth.expires_in_refresh_token,
@@ -64,6 +59,11 @@ class AuthenticateUserUseCase {
       user_id: user.id,
       expires_date: refresh_token_expires_date,
       refresh_token,
+    });
+
+    const token = sign({}, auth.secret_token, {
+      subject: user.id,
+      expiresIn: auth.expires_in_token,
     });
 
     const tokenReturn: IResponse = {
